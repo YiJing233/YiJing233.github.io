@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.ico">
+  <link rel="icon" href="/img/icon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="yijing">
+  <meta name="keywords" content="">
+  <meta name="description" content="前面讲了一些“鸡汤”，接下来就是站在一个前端工程师的视角上给出的学习Roadmap 提前声明：书籍（包括电子书）、网站等仅供参考，是我自己的入门路径，大家不必“完美复刻”，不要忘记自己探索的重要性哦 第一步：爬虫是的，你没有看错，一个前端工程师的最开始要学习的是爬虫。 理由（新人可能看不懂，可以学会一些东西之后回头看）：  爬虫包含了最基本的知识，包括网络请求处理、数据交互与存储、网页的组成等等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端&#x2F;Web学习Roadmap">
+<meta property="og:url" content="https://yijing233.com/2021/01/30/%E5%89%8D%E7%AB%AF-Web%E5%AD%A6%E4%B9%A0Roadmap/index.html">
+<meta property="og:site_name" content="Ascent">
+<meta property="og:description" content="前面讲了一些“鸡汤”，接下来就是站在一个前端工程师的视角上给出的学习Roadmap 提前声明：书籍（包括电子书）、网站等仅供参考，是我自己的入门路径，大家不必“完美复刻”，不要忘记自己探索的重要性哦 第一步：爬虫是的，你没有看错，一个前端工程师的最开始要学习的是爬虫。 理由（新人可能看不懂，可以学会一些东西之后回头看）：  爬虫包含了最基本的知识，包括网络请求处理、数据交互与存储、网页的组成等等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-30T12:38:36.000Z">
+<meta property="article:modified_time" content="2021-11-21T12:39:52.665Z">
+<meta property="article:author" content="yijing">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="百宝箱">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>前端/Web学习Roadmap - Ascent</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yijing233.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":30,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ascent</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="前端/Web学习Roadmap">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-30 20:38" pubdate>
+        2021年1月30日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端/Web学习Roadmap</h1>
+            
+            <div class="markdown-body">
+              <p>前面讲了一些“鸡汤”，接下来就是站在一个前端工程师的视角上给出的学习Roadmap</p>
+<p><strong>提前声明：书籍（包括电子书）、网站等仅供参考，是我自己的入门路径，大家不必“完美复刻”，不要忘记自己探索的重要性哦</strong></p>
+<h3 id="第一步：爬虫"><a href="#第一步：爬虫" class="headerlink" title="第一步：爬虫"></a>第一步：爬虫</h3><p>是的，你没有看错，一个前端工程师的最开始要学习的是爬虫。</p>
+<p>理由（新人可能看不懂，可以学会一些东西之后回头看）：</p>
+<ul>
+<li>爬虫包含了最基本的知识，包括网络请求处理、数据交互与存储、网页的组成等等</li>
+<li>现代Web技术以编程语言而不是HTML等静态标记语言为核心，且常见的爬虫语言Python、Go、JS等可以作为C语言知识之外的补充</li>
+<li>信软科班教学，从科班出身的前端人员是重应用、重开发而不是重视觉、重交互</li>
+</ul>
+<p>爬虫的教学有很多，个人的入门是通过这本书：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/1980">Python网络爬虫权威指南（第2版）</a></p>
+<p>（里面的代码，我之前曾一行一行敲了两三遍，现在回想起来也是很有意义的事）</p>
+<p>如果你还不会Python，可以考虑用这本书入门：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/2784">Python编程：从入门到实践（第2版）</a></p>
+<p>如果只是入门Python，你可以只看第一部分，你感兴趣可以顺便学习后面的Django（一个后端框架）和小游戏。</p>
+<p>网络上的课程方面，<a target="_blank" rel="noopener" href="https://developer.aliyun.com/learning/roadmap/python?spm=a2c6h.21110250.9515527460.1.12613c67ONV9BY">阿里云的Python</a>感觉节奏不错，如果有其他py入门课程可以回复，让大家都看到</p>
+<p>另外，<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400">廖雪峰的Python课程</a>可以作为进阶课程</p>
+<h3 id="第二步：前端两件套"><a href="#第二步：前端两件套" class="headerlink" title="第二步：前端两件套"></a>第二步：前端两件套</h3><p>当你用BeautifulSoap库获取数据的时候，你有没有发现网页的构成是什么样的？它是一个一个结构化的标签组成的，我们看到的所有网页都不例外，“盒子模型”贯穿始终。那么它们都是什么呢？接下来就是学习HTML了</p>
+<p>而我们在筛选标签的过程中，用到了很多标签的特性，比如颜色，它是和标签放在一起的还是分离的？相同的的标签，比如div是靠什么让我们在视觉上区分开？这些都是CSS的作用，那么，CSS也要安排一下咯</p>
+<p>网络资源推荐（CSS也是同样的平台去学）：</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/html/index.asp">w3school-HTML</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/html/html-tutorial.html">菜鸟教程-HTML</a></p>
+<p>书籍推荐：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/1199">HTML5与CSS3基础教程</a>（进阶书籍，先看HTML再看HTML5哦）</p>
+<h3 id="第三步：综合运用"><a href="#第三步：综合运用" class="headerlink" title="第三步：综合运用"></a>第三步：综合运用</h3><p>恭喜你，凭借以上的知识，你已经可以完成一个网站的搭建了，不信？快回去看看Python的Web教程（阿里云和廖雪峰都有），开始学习（或者重新学习）里面的课程吧，如果你之前学习了一些却没太理解，现在的你一定会茅塞顿开</p>
+<p>给个传送门：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/learning/roadmap/python?spm=a2c6h.21110250.9515527460.1.12613c67ONV9BY">阿里云-Python阶段2 Web开发</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1018138095494592">廖雪峰-Python Web APP</a></p>
+<p>如果你喜欢书本上的课程，我推荐这一本：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/2463">Flask Web开发：基于Python的Web应用开发实战（第2版）</a></p>
+<p>这个时候，你已经是一个合格的前端/Web入门者了，你已经有了知识体系的初步构建和动手能力</p>
+<h3 id="番外篇"><a href="#番外篇" class="headerlink" title="番外篇"></a>番外篇</h3><p>无论是爬虫还是Web App，少不了的一个部分就是数据存储。你可能会想，存储有什么呢？只要保存和读取就够了。那么如何做好保存和读取，它的形式是和我们在电脑里的文件一样吗？如果不一样，它的优势在哪里呢？</p>
+<p>抱着这些问题，你可以开始入门数据库和SQL了，如果这个时候你已经是大二下学期，那么我很推荐你去抱着课程的书本学习，如果你还是一个小白，这本书应该可以帮助你入门</p>
+<p><a target="_blank" rel="noopener" href="http://봃觷sq뤏뮁l(鸅내2)/">SQL基础教程（第2版）</a></p>
+<p>当然，这个时候也少不了廖雪峰</p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1177760294764384">廖雪峰的SQL课程</a></p>
+<p>如果你已经有了数据库基础，也很对数据库技术很感兴趣，论坛里的<a target="_blank" rel="noopener" href="https://d.jotang.club/t/topic/547">另一篇关于数据库的帖子</a>可能会帮到你哦（有种RPG游戏里从基础角色转职的感觉呢）</p>
+<h3 id="第四步：网络初入门"><a href="#第四步：网络初入门" class="headerlink" title="第四步：网络初入门"></a>第四步：网络初入门</h3><p>这个阶段，你已经对整个知识体系有了初步的认识。但是我们之前做的大多数工作都是在自己的计算机上进行的，有想过把自己写的Web应用给其他人使用吗？该怎么做呢？还有一个新的问题是为什么我们，为什么很多事情只有连接上网络（WiFi或是宽带、流量）才能进行？“互联网”的本质是什么？</p>
+<p>能回答以上问题的是计算机网络的知识，而作为初入门，你可以先看这本书：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/1229">图解HTTP</a></p>
+<p>（有很多图片，读起来相对简单）</p>
+<p>如果你学有余力，还想了解更深层的计算机网络的知识，就去看这本书吧（同时它也是大二下计网课程的教材）</p>
+<p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/30280001/">计算机网络</a></p>
+<h3 id="第五步，JavaScript"><a href="#第五步，JavaScript" class="headerlink" title="第五步，JavaScript"></a>第五步，JavaScript</h3><p>JS，现代Web无法离开的语言，它随着web的浪潮起势，在它成长的过程中有了Ajax异步技术，正式宣告了前后端分离时代的诞生，09年Nodejs的诞生让JS的能量爆发，到了今天，GitHub上JS依然是最活跃的语言（甚至没有之一）</p>
+<p>JS是极其重要的，强大的JS功底也是一个优秀的前端工程师必备的条件，那么让我们开始吧！</p>
+<p>JS从es6（js的标准）开始突变，因此有教程是专讲es5及之前的语法，有些教程不区分es6和es5，在下面的资源推荐中会标明白</p>
+<p>JS基础教程：</p>
+<p><a target="_blank" rel="noopener" href="https://wangdoc.com/javascript/">网道-JavaScript</a>（es5）</p>
+<p><a target="_blank" rel="noopener" href="https://zh.javascript.info/">现代JavaScript教程</a>（包含es6和es5）</p>
+<p><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/">阮一峰ES6 入门教程</a> （只讲es6）</p>
+<p>JS书籍</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/2472">JavaScript高级程序设计（第4版）</a>（经典红宝书，第四版应该有es6内容，存疑，非常推荐读）</p>
+<p><a target="_blank" rel="noopener" href="http://你不知道的javascript/">你不知道的JavaScript</a>（主讲es6，很喜欢的一套书，共分为上中下三卷，像一本武林秘籍）</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/42">JavaScript DOM编程艺术（第二版）</a>（可以读读）</p>
+<p>但是以上这些还只是入门的标准，（其实我现在都不敢说自己会JS）所以，持续学习吧！</p>
+<h3 id="第六步，但也不是第六步"><a href="#第六步，但也不是第六步" class="headerlink" title="第六步，但也不是第六步"></a>第六步，但也不是第六步</h3><p>这个小标题是什么意思呢？是说你可以不用同步地去学习了，接下来的知识可以并发学习（那么问题来了，什么是并行什么是并发呢？）</p>
+<h4 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h4><p>如果让我推荐初学者学习哪种前端框架，我一定会说是Vue，因为它足够新手友好</p>
+<p>网络资源推荐：</p>
+<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/">Vue中文官网</a>，内部有教程和规范等等，生态很好，中文文档很优秀</p>
+<p><a target="_blank" rel="noopener" href="https://godbasin.github.io/front-end-playground/vue/">被删的Vue学习教程</a> 来自勇聪、原寒的推荐，质量很有保证</p>
+<p>而进阶知识，有本书推荐：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/2675">深入浅出Vue.js</a></p>
+<p>以上的这些都是Vue2的教程，Vue3即将来到，那么该如何获取知识呢？</p>
+<p>从这个时候开始，你会发现你来到了瞬息万变的现代Web时代，你会发现在本部分之后，书籍的推荐减少了，更多是在网络上的知识。因为很多有趣有用的教程、课程是你自己搜索到的，包括但不限于B站的课程、各种在线编程培训班视频资源、CSDN、知乎、掘金等社区的优秀文章等等</p>
+<p>很多事情是自己搜索到的，是其他人推荐的，这就是探索能力的体现</p>
+<p>除了Vue，我更想向大家介绍Vue的作者尤雨溪，可以看看这个：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1iE411H71U?from=search&seid=9938655123101131915">尤雨溪的访谈视频</a></p>
+<p>PS：之前听同事和大牛推荐过国外的前端课程<a target="_blank" rel="noopener" href="https://frontendmasters.com/">Frontend Master</a>，如果你足够有💰和精力，可以选购</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h4 id="Nodejs"><a href="#Nodejs" class="headerlink" title="Nodejs"></a>Nodejs</h4><p>因为你有过用Python开发Web应用的经验，所以入门Node对你来说并不难，如果你想了解更多Node的优势，可以看看进阶知识里推荐的那本书</p>
+<p>教程推荐：</p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023025235359040">廖雪峰-Nodejs</a>（为什么总是你）</p>
+<p>进阶知识：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/1290">深入浅出Nodejs</a></p>
+<h4 id="Linux知识"><a href="#Linux知识" class="headerlink" title="Linux知识"></a>Linux知识</h4><p>如果你没有在学校上Unix操作系统基础这门课，我比较推荐你看这本书：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ituring.com.cn/book/171">Linux程序设计(第4版)</a></p>
+<h4 id="React"><a href="#React" class="headerlink" title="React"></a>React</h4><p>前端两大框架里，另一个就是React，它在国外被使用的更多，而在国内没有Vue火（有多方面的原因导致，可以再开一篇帖子分析了）但这并不影响React也是一个优秀的前端“框架”，React和Vue在相互抄袭借鉴中都获得了成长</p>
+<p>入门推荐；</p>
+<p><a target="_blank" rel="noopener" href="http://huziketang.mangojuice.top/books/react/">React小书</a></p>
+<p><a target="_blank" rel="noopener" href="https://react.docschina.org/docs/getting-started.html">React中文网</a></p>
+<p>进阶知识？快去自己探索（其实是自己也并没有太多好的教程啦）推荐阅读国外的论坛或博客，讲解React的会很多</p>
+<p>PS：如果大家有好的React教程、资料，可以在下面回复！</p>
+<h4 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h4><p>如果你是网络安全方向，这块可以跳过。</p>
+<p>Web安全是网络安全的一个重要部分，虽然现在的各大公司工种里已经将安全工程师和前后端开发区分开来，但是一本的安全知识素养还是要有，如XSS、CSRF等攻击的原理</p>
+<p>书籍推荐：</p>
+<p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/10546925/">白帽子讲Web安全</a></p>
+<h4 id="回答一个问题"><a href="#回答一个问题" class="headerlink" title="回答一个问题"></a>回答一个问题</h4><p>你已经学习到很多了，那么有这样一个问题：</p>
+<p>从浏览器里的地址栏里输入一串域名并回车，到一个页面展现在你面前都发生了什么事情？</p>
+<p>如果你能回答出50字，说明你已经入门了</p>
+<p>如果你能回答出400字，说明你已经有了Web的整体脉络</p>
+<p>如果你能用这个题目写一篇长长的文章，事无巨细滔滔不绝，那么我要给你竖起大拇指👍</p>
+<p>每学习一段时间，就更新一下这个问题的回答吧！这个问题可以贯穿你的学习始终</p>
+<h4 id="Docker与服务端知识"><a href="#Docker与服务端知识" class="headerlink" title="Docker与服务端知识"></a>Docker与服务端知识</h4><p>你知道什么是LAMP/LNMP嘛？</p>
+<p>它是Linux + Apache/Nginx + MySQL + PHP的缩写，是非常经典的一套动态网站的开源技术选型，你可以尝试用这一套东西搭建起自己的网站</p>
+<p>（非常抱歉，这个部分没有推荐的教程，因为我自己也是零散着学习的😭 ，读者朋友们有推荐的可以在下面回复）</p>
+<p>而Docker的出现，给前端朋友们一个快乐的方式部署自己的Web App，只需要一台云服务器即可，那么，尝试把自己写的Web App（无论是Vue项目还是React项目）部署起来，并在网络上访问它吧！</p>
+<h4 id="小程序-Serverless"><a href="#小程序-Serverless" class="headerlink" title="小程序 + Serverless"></a>小程序 + Serverless</h4><p>如今，各家互联网公司都推出了自己的小程序应用，从微信小程序到支付宝小程序、头条小程序甚至快手小程序等等，在这样一个繁杂的“小程序”世界里，和前端是脱不开关系的，如何开发小程序，小程序的实现是什么样的，小程序的未来如何？</p>
+<p>书籍推荐</p>
+<p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/27661869/">微信小程序开发入门和实践</a>（缺点是这本书比较老了，是2017年的版本，但是可以看看）</p>
+<p>Serverless在近年是一个很热门的话题，将“服务端”细化简化，为前端服务，Serverless在各大公司都有技术落地，且在国外也有创业公司专门做Serverless服务，代表的有<a target="_blank" rel="noopener" href="https://www.netlify.com/">Netlify</a>，而微信小程序的开发也和腾讯云Serverless有很深的融合，可以多多了解</p>
+<h4 id="其他前端-Web技术"><a href="#其他前端-Web技术" class="headerlink" title="其他前端/Web技术"></a>其他前端/Web技术</h4><ul>
+<li>Webpack，打包工具</li>
+<li>TypeScript，我认为会成为未来的JS技术标准（爆论）</li>
+<li>Babel，都快成为JS APP的基石了</li>
+<li>Electron（桌面端）</li>
+<li>React Native、Flutter（移动端）</li>
+<li>ES7、8、9与TC39 （当你了解了JS之后，就知道关注这些了）</li>
+<li>Deno （Node作者最近的新作）</li>
+<li>SSR （服务端渲染）</li>
+<li>V8 （V8引擎，与编译技术相关）</li>
+<li>WebAssembly（如何用其他语言开发Web）</li>
+<li>jquery （看看曾经的王者，可以学到很多）</li>
+<li>Wordpress/CMS （一个至今都很有价值的建一个网站的方式？）</li>
+<li>Low-code （前端未来的技术趋势之一）</li>
+<li>前端智能化（前端未来的技术趋势之一）</li>
+<li>前端工程化（前端是怎么成为一个工种的）</li>
+</ul>
+<p>·······</p>
+<h2 id="一些很值得推荐的教程-Book-博文链接-会议"><a href="#一些很值得推荐的教程-Book-博文链接-会议" class="headerlink" title="一些很值得推荐的教程/Book/博文链接/会议"></a>一些很值得推荐的教程/Book/博文链接/会议</h2><ul>
+<li>现代Web开发<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/88616149">https://zhuanlan.zhihu.com/p/88616149</a></li>
+<li><a target="_blank" rel="noopener" href="https://2019.jsconfchina.com/">JSConfChina</a> 看到上面的文章发现的，也很有意思</li>
+<li><a target="_blank" rel="noopener" href="https://www.alibabaf2e.com/">D2前端论坛</a> 阿里组织的论坛</li>
+<li><a target="_blank" rel="noopener" href="https://2019.stateofjs.com/">一年一度的前端技术趋势可视化</a></li>
+<li><a target="_blank" rel="noopener" href="https://jamstackconf.com/">Jamstack Conf </a>，讲web的</li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/rahxuls/ultimate-roadmap-with-so-many-resources-for-front-end-development-597f">RoadMap for FrontEnd</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/theme_selection/how-to-become-a-pro-front-end-developer-5gbo">另一个RoadMap</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.uptrends.com/web-performance/the-psychology-of-web-performance/">The psychology of web performance</a></li>
+<li><a target="_blank" rel="noopener" href="https://stateofcss.com/">一年一度的CSS技术趋势可视化</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dexteryy/spellbook-of-modern-webdev">现代web魔法指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://hopl4.sigplan.org/">HOPL-IV一个研究编程语言历史的会议</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ykfe/fe-dev-playbook">打造舒适的前端开发环境</a></li>
+<li><a target="_blank" rel="noopener" href="https://pomb.us/build-your-own-react/">Build-your-own-react</a></li>
+<li><a target="_blank" rel="noopener" href="https://basarat.gitbook.io/typescript/">TypeScript Deep Dive</a></li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>对于这个Roadmap，我深知上文罗列的资源教程并不会是全网最好的，但确确实实是我自己学习的历程，大家主要可以采取和而不同的策略，拿这个做个路径参考。</p>
+<p>而学习的时候也不要心急，因为这些看似“课外”的知识会最终与你学习的课内知识结合起来，你的知识体系是不断扩充和完善的，相信我，大二结束的时候才是你的质变。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%99%BE%E5%AE%9D%E7%AE%B1/">百宝箱</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/06/2021%E5%B9%B4%E4%BA%86%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%98%E5%9C%A8%E7%9C%8B%E9%80%83%E8%80%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2021年了，为什么我还在看逃耻</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/30/%E5%BD%93%E6%88%91%E4%BB%AC%E8%AF%B4%E5%85%A5%E9%97%A8%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E6%88%91%E4%BB%AC%E8%B0%88%E4%BA%9B%E4%BB%80%E4%B9%88/">
+                        <span class="hidden-mobile">当我们说入门的时候，我们谈些什么</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YiJing233/yijing233-blog-comment-area');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

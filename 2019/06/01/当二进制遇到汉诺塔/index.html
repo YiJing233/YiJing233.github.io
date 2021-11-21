@@ -1,0 +1,590 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.ico">
+  <link rel="icon" href="/img/icon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="yijing">
+  <meta name="keywords" content="">
+  <meta name="description" content="当二进制遇见汉诺塔xio计算机的怎么能不知道递归嘞？ 学习递归思想怎么能不拿汉诺塔问题练手呢？（紧紧抱住弱弱的自己） 呐，先来讲讲汉诺塔是啥子 #汉诺塔问题解决方法来自如何理解汉诺塔的递归？-酱紫君的回答 汉诺塔（Hanoi Tower），又称河内塔，源于印度一个古老传说。大梵天创造世界的时候做了三根金刚石柱子，在一根柱子上从下往上按照大小顺序摞着64片黄金圆盘。大梵天命令婆罗门把圆盘从下面开始按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当二进制遇到汉诺塔">
+<meta property="og:url" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/index.html">
+<meta property="og:site_name" content="Ascent">
+<meta property="og:description" content="当二进制遇见汉诺塔xio计算机的怎么能不知道递归嘞？ 学习递归思想怎么能不拿汉诺塔问题练手呢？（紧紧抱住弱弱的自己） 呐，先来讲讲汉诺塔是啥子 #汉诺塔问题解决方法来自如何理解汉诺塔的递归？-酱紫君的回答 汉诺塔（Hanoi Tower），又称河内塔，源于印度一个古老传说。大梵天创造世界的时候做了三根金刚石柱子，在一根柱子上从下往上按照大小顺序摞着64片黄金圆盘。大梵天命令婆罗门把圆盘从下面开始按">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/hanoi.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/3%E4%B8%AA.gif">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/4%E4%B8%AA.jpg">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/%E5%A4%9A%E5%87%BA%E4%B8%80%E4%B8%AA.jpg">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/%E9%B8%A1%E8%B4%BC.jpg">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/4%E4%B8%AA.gif">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0001.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0010.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0011.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0100.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0101.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0110.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0111.PNG">
+<meta property="og:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/1000.png">
+<meta property="article:published_time" content="2019-06-01T13:05:21.000Z">
+<meta property="article:modified_time" content="2021-11-21T13:06:02.877Z">
+<meta property="article:author" content="yijing">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/hanoi.PNG">
+  
+  <title>当二进制遇到汉诺塔 - Ascent</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yijing233.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":30,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ascent</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="当二进制遇到汉诺塔">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-06-01 21:05" pubdate>
+        2019年6月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">当二进制遇到汉诺塔</h1>
+            
+            <div class="markdown-body">
+              <h1 id="当二进制遇见汉诺塔"><a href="#当二进制遇见汉诺塔" class="headerlink" title="当二进制遇见汉诺塔"></a>当二进制遇见汉诺塔</h1><p>xio计算机的怎么能不知道递归嘞？</p>
+<p>学习递归思想怎么能不拿汉诺塔问题练手呢？（紧紧抱住弱弱的自己）</p>
+<p>呐，先来讲讲汉诺塔是啥子</p>
+<h2 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="#汉诺塔问题"></a>#汉诺塔问题</h2><p>解决方法来自<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24385418/answer/282940567">如何理解汉诺塔的递归？-酱紫君的回答</a></p>
+<p>汉诺塔（Hanoi Tower），又称河内塔，源于印度一个古老传说。大梵天创造世界的时候做了三根金刚石柱子，在一根柱子上从下往上按照大小顺序摞着64片黄金圆盘。大梵天命令婆罗门把圆盘从下面开始按大小顺序重新摆放在另一根柱子上。并且规定，任何时候，在小圆盘上都不能放大圆盘，且在三根柱子之间一次只能移动一个圆盘。问应该如何操作？</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/hanoi.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/hanoi.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>首先我们简化一下问题，把圆盘的数量设为3，这个问题就变得很简单了。</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/3%E4%B8%AA.gif"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/3%E4%B8%AA.gif" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<ul>
+<li>首先将最小的3号放在终点柱子上</li>
+<li>再把中间小的2号放在缓冲区（第二根柱子）上</li>
+<li>把3号放到2号上</li>
+<li>把1放到终点柱子上</li>
+<li>把3放到起点柱子上</li>
+<li>把2放到1上</li>
+<li>把3放到2上</li>
+</ul>
+<p>于是，通过七步就将这个问题解决了</p>
+<p>那我们将问题复杂化一下，盘子变成四个，这又该怎么解决呢？</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/4%E4%B8%AA.jpg"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/4%E4%B8%AA.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>假如我们不考虑这个多的第四个盘子，当它不存在，只看它头上的三个盘子，刚才提到的方法依旧可以完美的使用</p>
+<p>（可以大脑过一遍）</p>
+<p>于是我们得到了这样的结果：</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/%E5%A4%9A%E5%87%BA%E4%B8%80%E4%B8%AA.jpg"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/%E5%A4%9A%E5%87%BA%E4%B8%80%E4%B8%AA.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>那么我们可以非常鸡贼地把第二根柱子和第三根柱子替换，结果为：</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/%E9%B8%A1%E8%B4%BC.jpg"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/%E9%B8%A1%E8%B4%BC.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>然后把冒出来的盘子放到第三根柱子上，你会发现，这不就和3个盘子是一样的了吗？</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/4%E4%B8%AA.gif"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/4%E4%B8%AA.gif" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>4个盘子的挪动次数一共是</p>
+<p>“3个盘子汉诺塔” + “4盘子移动到第三根柱子” + “3个盘子汉诺塔”</p>
+<p>文字有点麻烦，快拿朕的数学公式来！</p>
+<p>当问题是3个盘子的时候：</p>
+<p><strong>$A_3= 7$</strong></p>
+<p>当问题是4个盘子的时候：</p>
+<p><strong>$A_4 = A_3 + 1 + A_3$</strong></p>
+<p>换一种形式就是：</p>
+<p><strong>$A_4 = 2A_3 + 1$</strong></p>
+<p>如果对于任意个盘子，我们都使用这种方法</p>
+<p>5个盘子，就先解决挪4个的问题</p>
+<p>6个盘子，就先解决挪5个的问题</p>
+<p>·······</p>
+<p>n个盘子，就先解决挪n-1个的问题</p>
+<p>所以移动次数的递推公式为</p>
+<p><strong>$A_n = 2A_{n-1} + 1$</strong></p>
+<p>数为n的汉诺塔问题通项公式为</p>
+<p><strong>$A_n = 2^n -1$</strong></p>
+<p>实际上我们把这个n个盘子的问题拆解了，分成了一步一步思路重复的工作</p>
+<p>不断重复的流程是：</p>
+<ul>
+<li>把n-1号盘子移到缓冲区柱子上</li>
+<li>把n号盘子从起点柱子移到终点根柱子上</li>
+<li>把n-1号盘子从缓冲柱子移到n号盘子上</li>
+</ul>
+<p>py代码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">def move(n,<span class="hljs-keyword">from</span>,buffer,<span class="hljs-keyword">to</span>): # n为盘子总数，<span class="hljs-keyword">from</span>为起点柱子，buffer为缓冲区柱子，<span class="hljs-keyword">to</span>为终点柱子<br>    <span class="hljs-keyword">if</span> <span class="hljs-attribute">n</span>==1:<br>        <span class="hljs-builtin-name">print</span>(<span class="hljs-string">&#x27;Move&#x27;</span>,n,<span class="hljs-string">&#x27;from&#x27;</span>,<span class="hljs-keyword">from</span>,<span class="hljs-string">&#x27;to&#x27;</span>,<span class="hljs-keyword">to</span>)<br>    <span class="hljs-keyword">else</span>:<br>        move(n-1,<span class="hljs-keyword">from</span>,<span class="hljs-keyword">to</span>,buffer) #  把n-1号盘子移到缓冲区柱子上<br><br>        move(1,<span class="hljs-keyword">from</span>,buffer,<span class="hljs-keyword">to</span>)  # 把n号盘子从起点柱子移到终点根柱子上<br><br>        move(n-1,buffer,<span class="hljs-keyword">from</span>,<span class="hljs-keyword">to</span>)    #   把n-1号盘子从缓冲柱子移到n号盘子上Copy<br></code></pre></td></tr></table></figure>
+
+<p>这个问题就完美滴解决了</p>
+<p>下面就要讲如何用二进制解决汉诺塔问题</p>
+<h2 id="二进制与汉诺塔"><a href="#二进制与汉诺塔" class="headerlink" title="#二进制与汉诺塔"></a>#二进制与汉诺塔</h2><p>解决方法来自<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av7398130/">用二进制解决汉诺塔问题-3brown1blue</a><br>（我在b站学习系列orz）</p>
+<p>首先我们看二进制的一些特别的地方</p>
+<p>拿从0记到十进制15为例</p>
+<p>0000</p>
+<p>-&gt; 0001 -&gt; 0010 -&gt; 0011 -&gt; 0100 -&gt; 0101 -&gt; 0110 -&gt; 0111</p>
+<p>-&gt; 1000</p>
+<p>-&gt; 1001 -&gt; 1010 -&gt; 1011 -&gt;1100 -&gt; 1101 -&gt; 1110 -&gt; 1111</p>
+<p>1000是数字8，我们可以发现从0记到15的过程其实是对称的</p>
+<ul>
+<li>从0记到7，一共经加了七次（可以数一下第一行的箭头数）</li>
+<li>加一，实现了由7加到8</li>
+<li>再从8记到15，同样加了七次（数一下最后一行的箭头数）</li>
+</ul>
+<p>是不是隐隐感觉有点儿不对了？好像这个流程和我们之前讲到的汉诺塔递归很相似啊！</p>
+<p>他们是不是有什么联系呢？</p>
+<p>答案是有的，如果我们依旧拿4个盘子的汉诺塔问题举例，二进制数起始为0000</p>
+<p>0000 -&gt; 0001 即把0从第一根柱子移到右边的柱子上</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0001.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0001.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0001 -&gt; 0010 就将1号盘移动到剩余的柱子上</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0010.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0010.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0010 -&gt; 0011 个位数加一，将0号盘移动到右边柱子上</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0011.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0011.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0011 -&gt; 0100 我们的数字又加了一位，将2号盘向右移动</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0100.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0100.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0100 -&gt; 0101,又是个位数字加一，可是0号盘子没有可以继续右移的柱子了，那就把它放到起始柱子上</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0101.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0101.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0101 -&gt; 0110 应该移动1号盘子，可是既没有可以右移的柱子，起始的柱子又挪不了，就放在中间柱子上吧</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0110.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0110.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0110 -&gt; 0111 又是个位数由0加1，将它移动到右边的柱子</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0111.PNG"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/0111.PNG" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>0111 -&gt; 1000 从7数到8了，将3号盘子右移</p>
+<p><a href="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/1000.png"><img src="https://yijing233.com/2019/06/01/%E5%BD%93%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%81%87%E5%88%B0%E6%B1%89%E8%AF%BA%E5%A1%94/1000.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p>接下来的过程，就和刚才的一样，实质上是抛弃“千位”，从000记到111</p>
+<p>我们可以惊奇的发现，这个流程真的和我们正常做汉诺塔问题完全一致</p>
+<p>实际上，这个做法是规定了二进制数加一时，应该进行什么样的模拟操作</p>
+<p><strong>我们规定“移动”为向右移动一根柱子，检查条件，无法放下就换下一根，且末尾柱子的下一根，是起始柱子</strong></p>
+<p><strong>另外，某一位数，由0变为1，就挪动代表该位的盘子，比如“个位” 00 -&gt; 01 则移动0号盘子</strong></p>
+<p>在这样的规则下，非常奇异地，它符合了汉诺塔最优解的流程</p>
+<p>我们可以说，二进制的计数与汉诺塔问题的步骤具有某种相似性</p>
+<p>（是不是很神奇啊哈哈哈哈，感觉两个八竿子打不着的东西居然如此相关）</p>
+<p>更多的内容和应用，在这个视频中有提到哦：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av7398130/">用二进制解决汉诺塔问题-3brown1blue</a></p>
+<p>一起来b站学习吧ヽ(￣ω￣(￣ω￣〃)ゝ</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/12/02/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%BB%91%E5%AE%A2%E6%9D%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">记一次黑客松</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/05/04/2019%E4%BA%94%E4%B8%80%E9%87%8D%E5%BA%86%E6%B8%B8%E8%AE%B0/">
+                        <span class="hidden-mobile">2019五一重庆游记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YiJing233/yijing233-blog-comment-area');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

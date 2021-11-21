@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.ico">
+  <link rel="icon" href="/img/icon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="yijing">
+  <meta name="keywords" content="">
+  <meta name="description" content="最小环境Threejs在底层其实还是调用html5中的canvas api来实现绘图的，Threejs在底层使用的是canvas的webgl context来实现3D绘图，其中比绘制2D图像更直接对gpu操作。 Threejs在顶层对3D绘图所需的各种元素（例如场景，摄影机，灯光，几何图像，材质等）进行了封装，如果我们需要使用Threejs来绘图，需要创建一个最小绘图环境 一个最小绘图环境包含了三">
+<meta property="og:type" content="article">
+<meta property="og:title" content="threejs与webgl">
+<meta property="og:url" content="https://yijing233.com/2020/09/29/threejs%E4%B8%8Ewebgl/index.html">
+<meta property="og:site_name" content="Ascent">
+<meta property="og:description" content="最小环境Threejs在底层其实还是调用html5中的canvas api来实现绘图的，Threejs在底层使用的是canvas的webgl context来实现3D绘图，其中比绘制2D图像更直接对gpu操作。 Threejs在顶层对3D绘图所需的各种元素（例如场景，摄影机，灯光，几何图像，材质等）进行了封装，如果我们需要使用Threejs来绘图，需要创建一个最小绘图环境 一个最小绘图环境包含了三">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-29T02:48:22.000Z">
+<meta property="article:modified_time" content="2021-11-21T12:50:49.532Z">
+<meta property="article:author" content="yijing">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="百宝箱">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>threejs与webgl - Ascent</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yijing233.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":30,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ascent</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="threejs与webgl">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-29 10:48" pubdate>
+        2020年9月29日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">threejs与webgl</h1>
+            
+            <div class="markdown-body">
+              <h2 id="最小环境"><a href="#最小环境" class="headerlink" title="最小环境"></a>最小环境</h2><p>Threejs在底层其实还是调用html5中的canvas api来实现绘图的，Threejs在底层使用的是canvas的webgl context来实现3D绘图，其中比绘制2D图像更直接对gpu操作。</p>
+<p>Threejs在顶层对3D绘图所需的各种元素（例如场景，摄影机，灯光，几何图像，材质等）进行了封装，如果我们需要使用Threejs来绘图，需要创建一个最小绘图环境</p>
+<p>一个最小绘图环境包含了三个要素：</p>
+<ol>
+<li>场景–包含所有需要显示的3D物体以及其他相关元素的容器</li>
+<li>摄像机–决定3D场景如何投影到2D画布之上</li>
+<li>渲染器–用于最后绘制的画笔</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import &#123; Scene, PerspectiveCamera, WebGLRenderer &#125; from ‘three’;<br><br>var scene = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Scene()</span>; <span class="hljs-comment">// 创建场景</span><br><br>var camera = <span class="hljs-keyword">new</span> <span class="hljs-constructor">PerspectiveCamera(45, <span class="hljs-params">window</span>.<span class="hljs-params">innerWidth</span> <span class="hljs-operator">/</span> <span class="hljs-params">window</span>.<span class="hljs-params">innerHeight</span>, 1, 1000)</span>; <span class="hljs-comment">// 创建摄影机</span><br>camera.position.z = <span class="hljs-number">8</span>;<br><br>var renderer = <span class="hljs-keyword">new</span> <span class="hljs-constructor">WebGLRenderer()</span>; <span class="hljs-comment">// 创建渲染器</span><br>renderer.set<span class="hljs-constructor">Size(<span class="hljs-params">window</span>.<span class="hljs-params">innerWidth</span>, <span class="hljs-params">window</span>.<span class="hljs-params">innerHeight</span>)</span>; <span class="hljs-comment">// 设置画布大小</span><br>renderer.set<span class="hljs-constructor">PixelRatio(<span class="hljs-params">window</span>.<span class="hljs-params">devicePixelRatio</span>)</span>; <span class="hljs-comment">// 设置像素比，针对高清屏</span><br>renderer.set<span class="hljs-constructor">ClearColor(0x000000, 1)</span>; <span class="hljs-comment">// 设置默认背景色</span><br><br>document.body.append<span class="hljs-constructor">Child(<span class="hljs-params">renderer</span>.<span class="hljs-params">domElement</span>)</span>; <span class="hljs-comment">// 把画笔插入到dom中Copy</span><br></code></pre></td></tr></table></figure>
+
+<p>简单的几句代码，就可以建立起一个最小绘图环境</p>
+<p>我们还需要告诉Threejs，到底需要显示什么物体。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">import</span> &#123; Mesh, MeshBasicMaterial, BoxGeometry &#125; from ‘three’;<br><br><span class="hljs-keyword">var</span> geometry = <span class="hljs-keyword">new</span> <span class="hljs-type">BoxGeometry</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// 创建一个长方体，用来定义物体的形状</span><br><br><span class="hljs-keyword">var</span> material = <span class="hljs-keyword">new</span> <span class="hljs-type">MeshBasicMaterial</span>(&#123; color: <span class="hljs-type">0xff0000 </span>&#125;); <span class="hljs-comment">// 创建一个材质，用来定义物体的颜色</span><br><br><span class="hljs-keyword">var</span> mesh = <span class="hljs-keyword">new</span> <span class="hljs-type">Mesh</span>(geometry, material); <span class="hljs-comment">// 使用形状和素材，来定义物体</span><br><br>scene.add(mesh);<br><br>renderer.render(scene, camera);Copy<br></code></pre></td></tr></table></figure>
+
+<p>Threejs在定义一个3D物体时，需要提供两个信息：</p>
+<ol>
+<li>形状信息，也就是这个物体上每一个点，每一个面的坐标信息</li>
+<li>材质信息，用于告诉Threejs物体的颜色，纹理，反光等信息。</li>
+</ol>
+<p><code>new BoxGeometry(1, 1, 1)</code>是告诉Threejs要显示一个长宽高各为1的长方形，而<code>new MeshBasicMateriall(&#123; color: 0xff0000&#125;)</code>是告诉Threejs要显示的长方形颜色是红色，最后根据形状和素材<code>new Mesh(geometry, material)</code>，生成需要显示的物体。</p>
+<p>物体的材质用于确定物体的颜色，纹理，以及反光等属性。Threejs里的灯光设置需要设置光源</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs abnf">import &#123; SpotLight &#125; from ‘three’<span class="hljs-comment">;</span><br>var light = new SpotLight(<span class="hljs-number">0</span>xffffff)<span class="hljs-comment">;、</span><br>light.position.z = <span class="hljs-number">5</span><span class="hljs-comment">;</span><br>light.position.x = <span class="hljs-number">5</span><span class="hljs-comment">;</span><br>light.position.y = <span class="hljs-number">5</span><span class="hljs-comment">;</span><br><br>scene.add(light)<span class="hljs-comment">;Copy</span><br></code></pre></td></tr></table></figure>
+
+<p>MeshLambertMaterial的材质，这种材质的特点是漫反射强烈，主要用来模拟真实环境下的物体，例如木材，石料等物质的反光情况。另外Threejs还有另外一种材质叫MeshPhongMaterial，这种材质主要是镜面反射强烈，用来模拟镜子，金属等拥有高光的物体就比较合适。</p>
+<p>如果绘制3D物体时，只能使用纯色，那也未免太单调了，没关系，Threejs提供了接口来帮忙解决这个问题。Threejs的材质，除了可以设置颜色，还支持纹理贴图，我们可以把一个图片，覆盖在3D物体上作为他的纹理</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">import</span> &#123; TextureLoader, MeshLambertMaterial &#125; <span class="hljs-keyword">from</span> ‘three’;<br><br>var texture = <span class="hljs-keyword">new</span> TextureLoader().load(‘.<span class="hljs-regexp">/assets/</span>texture/crate.gif’);<br><br>var material = <span class="hljs-keyword">new</span> MeshLambertMaterial(&#123; map: texture &#125;);<span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+
+<p>能绘图了，但如何加入动画？</p>
+<p>Threejs是通过渲染器来绘图的，我们在场景中摆好灯光，摆好道具，渲染器就绘制画面。那如果要做成动画，只需要在渲染器来个定时连拍。</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs openscad"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">()</span> &#123;</span><br>    requestAnimationFrame(<span class="hljs-built_in">render</span>);<br>    update();<br>    renderer.<span class="hljs-built_in">render</span>(scene, camera);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">()</span> &#123;</span><br>    <span class="hljs-comment">// update your view</span><br>&#125;Copy<br></code></pre></td></tr></table></figure>
+
+<p>通过requestAnimationFrame接口，来做定时刷新，每次进入render方法，都会先去执行update方法（用于更新场景），然后让渲染器拍照（renderer.render(scene, camera)），最后等待下一次render。</p>
+<p>在update方法中，我们可以修改场景中所有物体的参数</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">function</span> <span class="hljs-keyword">update</span>() &#123;<br>    <span class="hljs-type">box</span>.rotation.x += <span class="hljs-number">0.005</span>;<br>    <span class="hljs-type">box</span>.rotation.y += <span class="hljs-number">0.01</span>;<br>&#125;<span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+
+<p>这样就可以让盒子在屏幕中转动</p>
+<p>Threejs还有很多额外的能力，例如刚刚我们使用图片作为纹理，那么我们也可以使用视频作为纹理，把这个纹理贴到一个盒子上，通过陀螺仪来控制摄像机的拍摄方向，Threejs也支持粒子系统，模型数据导入，自定义着色器等一系列高级功能</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%99%BE%E5%AE%9D%E7%AE%B1/">百宝箱</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/21/2020%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93-%E6%B0%B8%E6%97%A0%E6%AD%A2%E5%A2%83%E7%9A%84%E5%9B%9B%E6%9C%88/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2020年度总结-永无止境的四月</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/30/%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/">
+                        <span class="hidden-mobile">系统分析与设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YiJing233/yijing233-blog-comment-area');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

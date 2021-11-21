@@ -1,0 +1,1070 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.ico">
+  <link rel="icon" href="/img/icon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="yijing">
+  <meta name="keywords" content="">
+  <meta name="description" content="CH01 软件开发软件开发困难 复杂性，软件规模与构建之间依赖关系复杂 一致性：软硬件平台，现有系统 可变性： 业务需求变化 不可见性：多数代码不可见  软件开发的任务就是确保固有困难不会失去控制，不对项目产生较大负面影响 成功主要因素分为三类利益相关者软件项目中存在利益关系的人：  客户（用户和系统所有者） 开发者（分析员、设计人员、程序员）  信息系统是由人（开发者）为人（客户）开发 软件失败">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统分析与设计">
+<meta property="og:url" content="https://yijing233.com/2020/08/30/%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Ascent">
+<meta property="og:description" content="CH01 软件开发软件开发困难 复杂性，软件规模与构建之间依赖关系复杂 一致性：软硬件平台，现有系统 可变性： 业务需求变化 不可见性：多数代码不可见  软件开发的任务就是确保固有困难不会失去控制，不对项目产生较大负面影响 成功主要因素分为三类利益相关者软件项目中存在利益关系的人：  客户（用户和系统所有者） 开发者（分析员、设计人员、程序员）  信息系统是由人（开发者）为人（客户）开发 软件失败">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-30T02:50:01.000Z">
+<meta property="article:modified_time" content="2021-11-21T12:52:04.211Z">
+<meta property="article:author" content="yijing">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>系统分析与设计 - Ascent</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yijing233.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":30,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ascent</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="系统分析与设计">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-08-30 10:50" pubdate>
+        2020年8月30日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">系统分析与设计</h1>
+            
+            <div class="markdown-body">
+              <h2 id="CH01-软件开发"><a href="#CH01-软件开发" class="headerlink" title="CH01 软件开发"></a>CH01 软件开发</h2><h3 id="软件开发困难"><a href="#软件开发困难" class="headerlink" title="软件开发困难"></a>软件开发困难</h3><ul>
+<li>复杂性，软件规模与构建之间依赖关系复杂</li>
+<li>一致性：软硬件平台，现有系统</li>
+<li>可变性： 业务需求变化</li>
+<li>不可见性：多数代码不可见</li>
+</ul>
+<p>软件开发的任务就是确保固有困难不会失去控制，不对项目产生较大负面影响</p>
+<h3 id="成功主要因素分为三类"><a href="#成功主要因素分为三类" class="headerlink" title="成功主要因素分为三类"></a>成功主要因素分为三类</h3><h4 id="利益相关者"><a href="#利益相关者" class="headerlink" title="利益相关者"></a>利益相关者</h4><p>软件项目中存在利益关系的人：</p>
+<ul>
+<li>客户（用户和系统所有者）</li>
+<li>开发者（分析员、设计人员、程序员）</li>
+</ul>
+<p>信息系统是由人（开发者）为人（客户）开发</p>
+<p>软件失败的主要原因可以追溯到利益相关者</p>
+<ul>
+<li>客户<ul>
+<li>客户需求被误解</li>
+<li>客户需求不切实际</li>
+<li>没有提足够资源</li>
+<li>需求更改频繁</li>
+</ul>
+</li>
+<li>开发者<ul>
+<li>不胜任</li>
+<li>“伟大的设计来源于伟大的设计者”</li>
+</ul>
+</li>
+</ul>
+<h4 id="软件过程"><a href="#软件过程" class="headerlink" title="软件过程"></a>软件过程</h4><p>软件过程定义完整软件生产和维护的所有活动的组织流程</p>
+<p>软件过程模型（软件开发模型/软件生存周期模型）：</p>
+<ul>
+<li>声明所执行活动的次序</li>
+<li>详细说明要开发的是什么产品什么时候交付</li>
+<li>将活动与人工制品分配给开发者</li>
+<li>提供用来监控项目进展、评估结果和未来项目的标准</li>
+</ul>
+<p>不易标准化，不同软件项目采用相应的软件过程模型</p>
+<p>现代软件开发过程总是迭代与增量</p>
+<p>迭代是短周期的，用户反馈是频繁的，规划是持续的</p>
+<p>迭代与增量过程模型：</p>
+<ul>
+<li>螺旋模型</li>
+<li>Rational统一过程(RUP)</li>
+<li>模型驱动的体系结构(MDA)</li>
+<li>敏捷开发过程</li>
+<li>面向方面的软件开发</li>
+</ul>
+<p>迭代与增量开发：</p>
+<ul>
+<li>必须遵循特定体系结构设计框架</li>
+<li>必须有计划有控制</li>
+</ul>
+<h4 id="CMM能力成熟度模型"><a href="#CMM能力成熟度模型" class="headerlink" title="CMM能力成熟度模型"></a>CMM能力成熟度模型</h4><p>有关软件工程和管理实践的最好的软件过程评估模型</p>
+<ol>
+<li>初始级，有能力的人与个人英雄主义</li>
+<li>可重复级，基本项目管理</li>
+<li>已定义级，过程标准化</li>
+<li>量化管理级，量化管理</li>
+<li>优化级，持续的过程改进</li>
+</ol>
+<h4 id="ITIL-ISO9000-COBIT"><a href="#ITIL-ISO9000-COBIT" class="headerlink" title="ITIL ISO9000 COBIT"></a>ITIL ISO9000 COBIT</h4><p>ITIL（Information Technology Infrastructure Library）是被最广泛使用和接受的、用于IT服务管理的最佳实践的框架</p>
+<p>ISO 9000系列质量标准：如果过程是正确的，那么过程的结果（产品或服务）也将是正确的</p>
+<p>COBIT是目前国际上通用的信息系统审计的标准，定义信息及相关技术的控制目标</p>
+<p>ITIL、CMM和ISO 9000是过程标准，COBIT则是产品标准</p>
+<h4 id="软件建模"><a href="#软件建模" class="headerlink" title="软件建模"></a>软件建模</h4><p>软件建模是指对软件系统进行抽象描述的活动，各个阶段都可以用建模工具对软件系统进行建模描述</p>
+<ul>
+<li>系统规划模型</li>
+<li>系统需求模型</li>
+<li>系统设计模型</li>
+<li>软件实现模型</li>
+<li>系统部署模型</li>
+<li>系统测试模型</li>
+</ul>
+<p>建模必须：</p>
+<ul>
+<li>沟通（语言）</li>
+<li>文档化（工具）</li>
+</ul>
+<p>统一建模语言（UML）是一个通用的、可视化的建模语言</p>
+<p>计算机辅助软件工程（CASE）工具使得在中央存储库中实<br>现模型的存储和检索成为可能</p>
+<h4 id="统一建模语言UML"><a href="#统一建模语言UML" class="headerlink" title="统一建模语言UML"></a>统一建模语言UML</h4><p>UML独立于</p>
+<ul>
+<li>任何开发过程：面向对象</li>
+<li>任何实现技术：面向对象</li>
+</ul>
+<p>UML模型包括</p>
+<ul>
+<li>状态模型：描述静态数据结构</li>
+<li>行为模型：描述对象协作</li>
+<li>状态变化模型：描述随时间推移系统所允许的状态</li>
+<li>体系结构构造：通用，无框架</li>
+</ul>
+<h4 id="软件开发策略"><a href="#软件开发策略" class="headerlink" title="软件开发策略"></a>软件开发策略</h4><ol>
+<li>定制开发，按照特定的需求对系统进行完整开发实现</li>
+<li>集成开发，基于现有系统和接口进行新软件系统和外部系统整合开发</li>
+</ol>
+<h3 id="系统规划"><a href="#系统规划" class="headerlink" title="系统规划"></a>系统规划</h3><p>对信息系统项目进行规划：识别、分类、排序和选择</p>
+<ol>
+<li>SWOT方法：优势、劣势、机会、威胁</li>
+</ol>
+<p>以调整组织的优势、劣势、机会和威胁的方式，来进行信息系统的识<br>别、分类、选择和排序，从确定组织使命开始，自顶向下</p>
+<ol>
+<li>VCM方法（价值链模型，value chain model）</li>
+</ol>
+<p>通过分析组织中完整的活动链（如：从原材料到销售及运送给客户的最终产品）来评估竞争优势</p>
+<ol>
+<li>Business Process Re-engineering，业务过程重组，过程再设计</li>
+<li>ISA方法（information system architecture）</li>
+</ol>
+<h3 id="三级管理系统"><a href="#三级管理系统" class="headerlink" title="三级管理系统"></a>三级管理系统</h3><ul>
+<li>策略级，支持组织长期目标的策略，知识，知识处理系统</li>
+<li>战术级，支持短期目标和资源分配的政策，信息，分析处理系统</li>
+<li>操作级，员工日常活动和生产支持，数据，事务处理系统</li>
+</ul>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><h4 id="结构化方法"><a href="#结构化方法" class="headerlink" title="结构化方法"></a>结构化方法</h4><p>结构化方法是以过程为中心的软件开发方法，由结构化分析方法、结构化设计方法和结构化程序设计方法组成。</p>
+<ul>
+<li>过程建模：数据流图（DFD）</li>
+<li>数据建模：实体关系图（ERD）</li>
+</ul>
+<p>优点：简单实用、技术成熟、容易应用。</p>
+<p>缺点：</p>
+<ul>
+<li>与现代软件工程不一致</li>
+<li>顺序和转换的方法，而不是迭代和递增的</li>
+<li>倾向于交付僵化的解决方案来满足已识别的业务功能集</li>
+<li>假设开发从零开始，不支持已有构件的复用</li>
+<li>对规模较大及处理复杂的软件系统项目不太适合，难以适应需求变更</li>
+<li>难以解决软件复用，难以进行软件维护，难以提高软件生产效率等</li>
+</ul>
+<h4 id="面向对象方法"><a href="#面向对象方法" class="headerlink" title="面向对象方法"></a>面向对象方法</h4><p>面向对象方法是一种将面向对象思想应用于软件开发过程、指导软件开发活动的方法。</p>
+<p>数据为中心——围绕类模型演化<br>– 但UML中用例的日渐重要性稍微的将重点从数据转向了过程</p>
+<h4 id="生命周期的阶段"><a href="#生命周期的阶段" class="headerlink" title="生命周期的阶段"></a>生命周期的阶段</h4><ul>
+<li>业务分析/需求分析</li>
+<li>功能性和非功能性需求</li>
+<li>系统设计<ul>
+<li>体系结构设计</li>
+<li>详细设计</li>
+</ul>
+</li>
+<li>实现<ul>
+<li>编码</li>
+</ul>
+</li>
+<li>集成和部署</li>
+<li>运行和维护</li>
+</ul>
+<h4 id="跨越生命周期的活动"><a href="#跨越生命周期的活动" class="headerlink" title="跨越生命周期的活动"></a>跨越生命周期的活动</h4><ol>
+<li>项目规划<ul>
+<li>估计项目的可交付性、代价、时间、风险、里程碑和资源需求</li>
+<li>选择开发方法、过程、工具、标准、团队组织</li>
+<li>随生命周期而改进</li>
+<li>典型的约束是时间和费用</li>
+</ul>
+</li>
+<li>度量<ul>
+<li>度量开发时间和工作量，度量软件产品的质量和复杂性</li>
+<li>在生命周期的不同阶段度量开发模型→评估过程的有效性和改进生命周期不同阶段的工作质量</li>
+<li>没有对过去项目的度量，组织就无法精确计划未来的项目</li>
+<li>测试</li>
+<li>审查：规格说明等文档（包括程序源代码）</li>
+<li>动态测试：规格说明测试（黑盒测试）、代码测试（白盒测试、玻璃盒测试）</li>
+</ul>
+</li>
+</ol>
+<h4 id="开发模型与方法"><a href="#开发模型与方法" class="headerlink" title="开发模型与方法"></a>开发模型与方法</h4><p>迭代和增量开发的代表性模型</p>
+<ul>
+<li>螺旋模型</li>
+<li>IBM Rational统一过程（RUP）RUP统一过程模型是一种用例驱动的、增量迭代的、以体系结构为中心的软件开发流程框架，</li>
+<li>模型驱动的体系结构（MDA）使用模型完成软件的分析、设计、构建、部署、维护等各开发活动</li>
+<li>敏捷软件开发,适应不断变化的需求</li>
+<li>面向方面的开发,为定义、说明、设计和构建方面/Aspect提供过程和方法</li>
+</ul>
+<h2 id="CH02-需求确定"><a href="#CH02-需求确定" class="headerlink" title="CH02 需求确定"></a>CH02 需求确定</h2><h3 id="业务过程建模"><a href="#业务过程建模" class="headerlink" title="业务过程建模"></a>业务过程建模</h3><h4 id="BPMN业务过程图（Business-Process-Model-andNotation，BPMN）"><a href="#BPMN业务过程图（Business-Process-Model-andNotation，BPMN）" class="headerlink" title="BPMN业务过程图（Business Process Model andNotation，BPMN）"></a>BPMN业务过程图（Business Process Model andNotation，BPMN）</h4><p>目的是为业务人员和IT人员提供共同的沟通语言，即是泳道图</p>
+<ul>
+<li><p>流对象，事件、活动、路由</p>
+</li>
+<li><p>连接对象，序列流、消息流、关联</p>
+</li>
+<li><p>泳道，一个业务实体</p>
+</li>
+<li><p>人工制品，数据对象、组、注释</p>
+<p>过程是分层的，过程可能包含其他过程，过程中的原子活动叫做任务</p>
+<h4 id="UML活动图"><a href="#UML活动图" class="headerlink" title="UML活动图"></a>UML活动图</h4><p>UML活动图是一种用于描述系统行为的模型图，它可用来描述过程（业务过程、工作流、事件流等）中的活动及其迁移</p>
+</li>
+</ul>
+<ol>
+<li>描述用例的行为,建模用例工作流</li>
+<li>理解工作流程，画出业务工作流活动图</li>
+<li>描复杂过程的算法</li>
+</ol>
+<ul>
+<li>活动<ul>
+<li>活动起点</li>
+<li>活动终点</li>
+<li>动作状态</li>
+<li>活动状态</li>
+<li>组合活动</li>
+</ul>
+</li>
+<li>转换/转移<ul>
+<li>描述一个活动转向另一个活动</li>
+<li>带箭头的实线段，箭头指向转向的活动</li>
+<li>转换上可以用文字标识转换发生的条件</li>
+</ul>
+</li>
+<li>分叉与汇合</li>
+<li>分支与合并</li>
+<li>泳道</li>
+<li>对象流</li>
+</ul>
+<h3 id="需求引导"><a href="#需求引导" class="headerlink" title="需求引导"></a>需求引导</h3><h4 id="软件需求（Software-Requirement）"><a href="#软件需求（Software-Requirement）" class="headerlink" title="软件需求（Software Requirement）"></a>软件需求（Software Requirement）</h4><p>是一个软件系统所需具有的功能与性能要求，它描述了待开发软件系统的行为、特性、属性及其约束条件</p>
+<p>系统服务： 功能性需求<br>系统约束： 非功能性需求</p>
+<h5 id="非功能性需求"><a href="#非功能性需求" class="headerlink" title="非功能性需求"></a>非功能性需求</h5><ol>
+<li>性能<ul>
+<li>响应时间</li>
+<li>吞吐量</li>
+<li>并发用户数</li>
+</ul>
+</li>
+<li>可用性</li>
+<li>可靠性</li>
+<li>效率</li>
+<li>适应性</li>
+<li>复用性</li>
+</ol>
+<h5 id="需求的来源"><a href="#需求的来源" class="headerlink" title="需求的来源"></a>需求的来源</h5><p>最基本的需求来源就是用户需求。它反映了用户对系统的功能与性能等方面的要求</p>
+<h5 id="需求引导的传统方法"><a href="#需求引导的传统方法" class="headerlink" title="需求引导的传统方法"></a>需求引导的传统方法</h5><ul>
+<li>面谈</li>
+<li>调查表</li>
+<li>观察/业务示范</li>
+<li>研究文档和软件系统</li>
+</ul>
+<h5 id="需求引导的现代方法"><a href="#需求引导的现代方法" class="headerlink" title="需求引导的现代方法"></a>需求引导的现代方法</h5><ul>
+<li>原型法</li>
+<li>头脑风暴</li>
+<li>联合应用开发(Joint application development,JAD)</li>
+<li>快速应用开发(Rapid application development,RAD)</li>
+<li>基于用例的方法</li>
+</ul>
+<h3 id="需求协商与确认"><a href="#需求协商与确认" class="headerlink" title="需求协商与确认"></a>需求协商与确认</h3><p>需要“需求协商与确认”的原因</p>
+<ul>
+<li>可能是重叠与矛盾的，需要用需求依赖矩阵</li>
+<li>可能是模棱两可或者不现实的</li>
+<li>可能未被发现</li>
+<li>可能超出范围</li>
+<li>“需求协商”从需求文档的草稿开始，删除错误的需求，<br>增加新发现的需求</li>
+<li>“需求确认”正式评审文档并‘盖章’（复审会议）</li>
+</ul>
+<h3 id="需求管理"><a href="#需求管理" class="headerlink" title="需求管理"></a>需求管理</h3><h4 id="需求标识与分类"><a href="#需求标识与分类" class="headerlink" title="需求标识与分类"></a>需求标识与分类</h4><p>需求采用自然语言陈述，大量需求陈述</p>
+<p>标识与分类方案</p>
+<ul>
+<li>唯一标识符：通常是顺序号<ul>
+<li>如有可能，由数据库产生（最灵活和不易出错）</li>
+<li>如有可能，包含版本号</li>
+</ul>
+</li>
+<li>在文档层次中的顺序编号：根据需求在文档中的位置</li>
+<li>第2章第3节的第7条需求被编号为2.3.7 – 在需求分类中的顺序编号</li>
+</ul>
+<h4 id="需求层次"><a href="#需求层次" class="headerlink" title="需求层次"></a>需求层次</h4><p>需求可按父-子关系建立层次结构</p>
+<h4 id="需求变更"><a href="#需求变更" class="headerlink" title="需求变更"></a>需求变更</h4><p>软件开发的任何阶段，需求都可能变更</p>
+<h4 id="需求跟踪"><a href="#需求跟踪" class="headerlink" title="需求跟踪"></a>需求跟踪</h4><p>需求跟踪贯穿整个开发生命周期的需求变更</p>
+<p>需求跟踪的方式：</p>
+<ul>
+<li>正向跟踪：检查《产品需求规格说明书》中的每个需求是否都能在后继工作成果中找到对应点。</li>
+<li>逆向跟踪：检查设计文档、代码、测试用例等工作成果是否都能在《产品需求规格说明书》中找到出处。</li>
+</ul>
+<h4 id="需求业务模型"><a href="#需求业务模型" class="headerlink" title="需求业务模型"></a>需求业务模型</h4><p>业务用例模型-UML业务用例图</p>
+<p>业务用例图主要包含业务参与者、业务用例、以及它们之间<br>的关系</p>
+<p>主要参与者和次要参与者（外部实体）</p>
+<ul>
+<li>很多参与者对系统来说既是内部的又是外部的</li>
+<li>业务用例模型中重要的关系是关联关系</li>
+<li>需求分析阶段，业务用例图被转换为用例图，并完成详细<br>的用例规约</li>
+</ul>
+<h4 id="需求文档"><a href="#需求文档" class="headerlink" title="需求文档"></a>需求文档</h4><h5 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h5><p>针对目标管理者和决策制定者</p>
+<ul>
+<li>从项目的目的和范围开始</li>
+<li>业务环境：为系统作一个业务案例</li>
+<li>标识利益相关者</li>
+<li>为解决方案提供初始想法<ul>
+<li>包含现成的解决方案</li>
+<li>现成的解决方案并不能省去需求分析与系统设计</li>
+</ul>
+</li>
+<li>包含对文档其余部分的综述</li>
+</ul>
+<h5 id="系统服务"><a href="#系统服务" class="headerlink" title="系统服务"></a>系统服务</h5><p>专门讲系统服务的定义：系统必须完成什么</p>
+<p>很可能占据整个文档的一大半</p>
+<p>包含高层需求业务模型</p>
+<ul>
+<li>系统范围：环境图</li>
+<li>功能需求：业务用例图</li>
+<li>数据需求：业务类图</li>
+<li>业务词汇表放在附录</li>
+</ul>
+<h5 id="系统约束"><a href="#系统约束" class="headerlink" title="系统约束"></a>系统约束</h5><ul>
+<li>界面需求：</li>
+<li>性能需求：</li>
+<li>安全性需求：</li>
+<li>操作性需求：</li>
+<li>政策和法律需求</li>
+<li>其他约束：</li>
+</ul>
+<h5 id="项目其他问题"><a href="#项目其他问题" class="headerlink" title="项目其他问题"></a>项目其他问题</h5><ul>
+<li>待解决问题</li>
+<li>初步计划</li>
+<li>初步预算</li>
+</ul>
+<h5 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h5><ul>
+<li>词汇表</li>
+<li>业务文档和表格</li>
+<li>参考文献</li>
+</ul>
+<h2 id="CH03-可视化建模基础"><a href="#CH03-可视化建模基础" class="headerlink" title="CH03 可视化建模基础"></a>CH03 可视化建模基础</h2><h3 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h3><p>模型是系统的一种抽象表示</p>
+<p>建模就是对系统进行抽象描述，使人们能够通过其模型去理解与<br>设计系统</p>
+<ol>
+<li>建模系统具有如下好处：<ul>
+<li>通过创建系统的模型，可使人们便于理解、分析与设计系统</li>
+<li>通过模型可发现与解决系统中的问题，其成本低</li>
+<li>模型可帮助进行系统项目的计划、交流、评估和管理</li>
+</ul>
+</li>
+<li>软件系统建模原则<ul>
+<li>准确原则，模型必须准确地反映系统的真实情况</li>
+<li>分层原则，模型以不同的抽象程度反映系统</li>
+<li>分治原则，需要采用分治方法把问题分解为多个子模型来处理</li>
+<li>标准原则，模型应该是通用的和标准的，这样便于交流与重用</li>
+</ul>
+</li>
+</ol>
+<h4 id="UML特点"><a href="#UML特点" class="headerlink" title="UML特点"></a>UML特点</h4><ol>
+<li>规范并统一了面向对象模型元素的定义和表示法，以及对模型表示的规定，使得对系统的建模有章可循。有标准的语言工具可用，有利于保证系统的建模质量。</li>
+<li>提供了简洁地达面向对象中的各种概念和模型元素的能力。UML能够在尽可能简单的同时，满足对实际开发的需要，对系统的各个方面进行建模。</li>
+<li>可视化、表示能力强。系统的逻辑模型或实现模型均可用UML模型图形清晰表示，并提供用户的扩展支持，可以处理现代软件开发中出现的所有概念。</li>
+<li>通用语言，具有庞大的标准符号体系，提供了多种模型，独立于开发过程。可支持其他面向对象开发和传统的软件开发过程。</li>
+<li>文档化语言，能够为系统体系结构和细节建立文档</li>
+</ol>
+<h4 id="利用UML进行软件开发"><a href="#利用UML进行软件开发" class="headerlink" title="利用UML进行软件开发"></a>利用UML进行软件开发</h4><p>需求确定阶段</p>
+<ul>
+<li>捕获用户需求，建立用例模型，描述对系统感兴趣的外部角色及对系统的功能要求</li>
+<li>采用业务用例图描述系统业务，确定项目范围</li>
+</ul>
+<p>系统分析阶段</p>
+<ul>
+<li>采用用例图和文档描述系统的功能需求</li>
+<li>关心问题域中的主要概念（如类和对象等）和机制，识别类以及它们相互间的关系，并用UML类图来描述</li>
+<li>为实现用例，类之间需要协作，用UML动态模型描述，采用活动图、顺序图、通信图、状态机图等描述系统逻辑流程、对象间交互等</li>
+<li>文档编制人员采用用例图和文档编写用户手册和培训计划</li>
+</ul>
+<p>系统设计阶段</p>
+<ul>
+<li>使用构件图、部署图、包图，定义软件系统体系结构</li>
+<li>采用类图、对象图等定义软件系统构件技术细节</li>
+<li>使用活动图、状态机图、顺序图、通信图等描述系统的逻辑流程、</li>
+</ul>
+<p>系统实现阶段</p>
+<ul>
+<li>用面向对象编程语言将设计阶段的类转换成代码</li>
+</ul>
+<p>系统测试阶段</p>
+<ul>
+<li>单元测试使用类图和类规格说明</li>
+<li>集成测试使用构件图和通信图</li>
+<li>系统测试使用用例图</li>
+<li>验收测试由用户进行，以验证系统测试的结果是否满足在分析阶段<br>确定的需求</li>
+</ul>
+<h2 id="CH04-需求规格说明"><a href="#CH04-需求规格说明" class="headerlink" title="CH04 需求规格说明"></a>CH04 需求规格说明</h2><p>软件体系结构定义了系统中相互作用的软件构件及子系统的<br>结构和组织形式。</p>
+<h3 id="结构化分析方法"><a href="#结构化分析方法" class="headerlink" title="结构化分析方法"></a>结构化分析方法</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>建模方法</th>
+<th>模型表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能建模</td>
+<td>数据流分析方法</td>
+<td>数据流图,层次数据流图,数据字典</td>
+</tr>
+<tr>
+<td></td>
+<td>IDEF0分析方法</td>
+<td>活动数据图</td>
+</tr>
+<tr>
+<td>数据建模</td>
+<td>语义数据模型方法</td>
+<td>实体-关系图（ER图）</td>
+</tr>
+<tr>
+<td></td>
+<td>IDEF1X模型方法</td>
+<td>IDEF1X图例</td>
+</tr>
+</tbody></table>
+<h3 id="面向对象分析方法"><a href="#面向对象分析方法" class="headerlink" title="面向对象分析方法"></a>面向对象分析方法</h3><table>
+<thead>
+<tr>
+<th>建模方法</th>
+<th>模型表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UML</td>
+<td>用例图、活动图、顺序图等</td>
+</tr>
+<tr>
+<td>OOSE</td>
+<td>用例图、对象图、交互作用图、状态图等</td>
+</tr>
+<tr>
+<td>Booch</td>
+<td>对象图、状态跃迁图、交互作用图等</td>
+</tr>
+<tr>
+<td>OMT</td>
+<td>文本化的用例、事件跟踪图、事件流图、状态图、数据流图等</td>
+</tr>
+<tr>
+<td>OOA/OOD</td>
+<td>OOA图、对象状态图、服务图等</td>
+</tr>
+</tbody></table>
+<h3 id="需求规格说明"><a href="#需求规格说明" class="headerlink" title="需求规格说明"></a>需求规格说明</h3><p>需求规格说明是客户和开发小组对将要开发的系统产品达成的一致协议。这一协议综合了业务需求、用户需求和软件功能和性能需求。它将作为系统开发、验证、评审最基本的依据和最重要的文档。</p>
+<p>建立图形化模型，描绘转换过程、系统状态变化、数据关系、逻辑流程和它们的关系。</p>
+<h4 id="需求规格说明书的使用对象"><a href="#需求规格说明书的使用对象" class="headerlink" title="需求规格说明书的使用对象"></a>需求规格说明书的使用对象</h4><ul>
+<li>客户和营销部门：了解他们所能提供的产品</li>
+<li>项目经理：制定规划并预测进度安排、工作量和资源</li>
+<li>软件开发小组：理解他们将要开发的产品</li>
+<li>测试小组：制定测试计划、测试用例和测试过程</li>
+<li>软件维护和支持人员：了解产品的某部分是做什么的</li>
+<li>产品发布组：在需求规格说明书和用户界面设计的基础上编写<br>客户文档，如用户手册和帮助屏幕等。</li>
+<li>培训人员：根据需求规格说明书和用户文档编写培训材料。</li>
+</ul>
+<h3 id="状态规格说明"><a href="#状态规格说明" class="headerlink" title="状态规格说明"></a>状态规格说明</h3><p>状态规格说明提供系统的结构视图（静态视图）</p>
+<p>主要任务是定义应用领域的类、类的属性、以及与其它类的关系</p>
+<p>UML中使用类图（Class Diagram）和对象图（Object Diagram）进行状态规格说明</p>
+<h4 id="类建模"><a href="#类建模" class="headerlink" title="类建模"></a>类建模</h4><p>类建模不是一个确定的过程，是高度迭代增量式</p>
+<h5 id="发现类"><a href="#发现类" class="headerlink" title="发现类"></a>发现类</h5><ol>
+<li><p>名词短语方法，将每一个名词或名词短语认为一个候选类，分成相关类、模糊类、无关类</p>
+</li>
+<li><p>公共模式方法：分类理论将对象世界划分成有用的组</p>
+</li>
+<li><p>用例驱动方法，根据用例图、用例规约、行为和交互模型来发现候选类</p>
+</li>
+<li><p>CRC方法，类-职责-协作者Classes-Responsibilities-Collaborators），分析对象之间为完成业务功能而进行的协作来识别类</p>
+<p>头脑风暴式的集体讨论，使用一种特殊制作的卡片，卡片包含3栏：</p>
+<ul>
+<li>类名：最上面的分栏</li>
+<li>类职责：左边的分栏</li>
+<li>协作者：右边的分栏</li>
+</ul>
+</li>
+<li><p>混合方法发现类的实际过程，常常是以上几种方法的混合</p>
+</li>
+</ol>
+<h2 id="CH05-从分析到设计"><a href="#CH05-从分析到设计" class="headerlink" title="CH05 从分析到设计"></a>CH05 从分析到设计</h2><h3 id="高级类建模"><a href="#高级类建模" class="headerlink" title="高级类建模"></a>高级类建模</h3><h4 id="可见性与封装"><a href="#可见性与封装" class="headerlink" title="可见性与封装"></a>可见性与封装</h4><ul>
+<li>私有可见性（-）</li>
+<li>公共可见性（+）</li>
+<li>保护可见性（#）</li>
+<li>包可见性（~）</li>
+</ul>
+<h4 id="关联类与具体化类"><a href="#关联类与具体化类" class="headerlink" title="关联类与具体化类"></a>关联类与具体化类</h4><p>关联类：是一个关联，也是一个类</p>
+<ul>
+<li>如果两个类之间是多对多的关联，每个关联实例具有属性值，则使用关联类</li>
+<li>关联类的约束：对于每一对链接起来的类的实例，只能存在关联类的一个实例</li>
+</ul>
+<p>如果不能满足该约束，则将关联具体化，使用普通类代替关联类（具体化类）</p>
+<h3 id="高级泛化与继承建模"><a href="#高级泛化与继承建模" class="headerlink" title="高级泛化与继承建模"></a>高级泛化与继承建模</h3><p>泛化是类之间的语义关系，泛化关系用来描述类的一般和具体之间的关系，表明“是一种”关系。泛化的目的是“继承”、“可替换”、“多态性”</p>
+<p>继承是一种机制，通过继承特殊的元素可以合并一般元素中定义的结构和行为</p>
+<p>封装与继承是正交的,通过继承，封装可以被打破</p>
+<p>封装和查询能力是正交的– 用户依靠SQL访问数据库，直接查阅属性证明是有效的</p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>抽象类是对一组具有相同属性和方法的逻辑上有关系的事物的一种抽象</p>
+<p>接口是对一组具有相同属性和方法的逻辑上不相关的事物的一种抽象</p>
+<h3 id="高级聚合与委托建模"><a href="#高级聚合与委托建模" class="headerlink" title="高级聚合与委托建模"></a>高级聚合与委托建模</h3><p>聚合表示类之间的“整体和部分”关系。整体称为“复合类”，部分称为“构件类”</p>
+<ul>
+<li>ExclusiveOwns专属聚合</li>
+<li>Member成员聚合</li>
+<li>Owns从属聚合</li>
+<li>Has拥有聚合</li>
+</ul>
+<h3 id="高级交互技术"><a href="#高级交互技术" class="headerlink" title="高级交互技术"></a>高级交互技术</h3><ul>
+<li>说明基本技术</li>
+<li>创建与销毁对象</li>
+<li>结构化控制</li>
+<li>alt条件片段、opt选择片段</li>
+<li>loop循环片段</li>
+<li>交互使用,是一个外围交互对另一个交互的引用</li>
+</ul>
+<h2 id="CH06-系统与程序设计"><a href="#CH06-系统与程序设计" class="headerlink" title="CH06 系统与程序设计"></a>CH06 系统与程序设计</h2><h3 id="体系结构与模式"><a href="#体系结构与模式" class="headerlink" title="体系结构与模式"></a>体系结构与模式</h3><ol>
+<li>体系结构设计是从系统的模块方面对系统进行描述<ul>
+<li>定义类和包的分层组织</li>
+<li>将进程分配给计算设施</li>
+<li>复用和构件管理</li>
+</ul>
+</li>
+</ol>
+<p>软件体系结构定义了系统中相互作用的软件构件及子系统的结构和组织形式</p>
+<p><strong>至关重要：在详细的系统规格说明之前，选定体系结构模式和原则</strong></p>
+<ol>
+<li>详细设计是对每个模块（用例）内部工作的描述<ul>
+<li>设计算法和数据结构</li>
+<li>描述（实现用例的）协作模型</li>
+</ul>
+</li>
+</ol>
+<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p>模式阐述了一个在软件系统设计和实现中反复出现的问题，记录了软件开发领域已得到充分证明的经验和良好的设计实践</p>
+<h4 id="架构模式-体系结构模式"><a href="#架构模式-体系结构模式" class="headerlink" title="架构模式/体系结构模式"></a>架构模式/体系结构模式</h4><p>描述了在特定设计情形下反复出现的问题，并提供了已经得到充分证明的通用解决方案摘要。解决方案描述模式的组件、组件的职责和关系、以及这些组件协作的方式。</p>
+<p>架构模式是软件架构（体系结构）的模板，描绘应用程序的系统级结构特征，并将影响子系统的架构。</p>
+<h5 id="MVC架构"><a href="#MVC架构" class="headerlink" title="MVC架构"></a>MVC架构</h5><p>将程序分成三部分：处理、输出、输入</p>
+<ul>
+<li>模型组件（Model）：封装核心数据和功能，独立于输入和输出</li>
+<li>视图组件（View）：向用户显示信息，一个模型可以有多个视图</li>
+<li>控制器组件（Controller）：每个视图都有相关联的控制器组件，处理用户输入</li>
+</ul>
+<h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><ul>
+<li>外观（Façade）</li>
+<li>抽象工厂（Abstract Factory）</li>
+<li>责任链（Chain of Responsibility）</li>
+<li>观察者（Observer）发布-订阅模式</li>
+<li>中介者（Mediator）</li>
+<li>Whole-Part（整体-部分）</li>
+<li>Master-Slave（主-从）</li>
+<li>Proxy（代理）</li>
+<li>Command Processor（命令处理器）</li>
+<li>View Handler(视图管理者)</li>
+<li>Forwarder-Receiver（转发者-接收者）</li>
+<li>Client-Dispatcher-Server（客户端-分配器-服务器）</li>
+</ul>
+<h4 id="体系结构设计"><a href="#体系结构设计" class="headerlink" title="体系结构设计"></a>体系结构设计</h4><ul>
+<li>逻辑体系结构<ul>
+<li>关注系统中相互作用的软件构件及子系统的结构和组织形式</li>
+<li>使用UML构件图和UML包图建模</li>
+</ul>
+</li>
+<li>物理体系结构<ul>
+<li>关注部署方案的选择以及系统的工作负荷在多处理器上的分布</li>
+<li>将处理构件分配给计算机结点</li>
+<li>使用UML部署图建模</li>
+</ul>
+</li>
+</ul>
+<h4 id="体系结构建模"><a href="#体系结构建模" class="headerlink" title="体系结构建模"></a>体系结构建模</h4><ul>
+<li>构件图</li>
+<li>部署图</li>
+<li>包图</li>
+</ul>
+<h2 id="CH07-GUI用户图形界面"><a href="#CH07-GUI用户图形界面" class="headerlink" title="CH07 GUI用户图形界面"></a>CH07 GUI用户图形界面</h2><h3 id="界面元素"><a href="#界面元素" class="headerlink" title="界面元素"></a>界面元素</h3><p>界面元素: 窗口、菜单、 按钮、标签、 滚动条、 下拉列表、 状态栏等<br>界面操作机制: 导航机制 输入机制 输出机制</p>
+<h3 id="良好的特性"><a href="#良好的特性" class="headerlink" title="良好的特性"></a>良好的特性</h3><ol>
+<li>易用性，操作简单方便</li>
+<li>灵活性，可灵活处理</li>
+<li>安全性，操作有效</li>
+<li>艺术性，赏心悦目</li>
+</ol>
+<h3 id="GUI设计原则"><a href="#GUI设计原则" class="headerlink" title="GUI设计原则"></a>GUI设计原则</h3><ol>
+<li>方便用户控制</li>
+<li>提供定制化</li>
+<li>界面美观</li>
+<li>界面一致</li>
+<li>减少用户记忆负担</li>
+</ol>
+<h3 id="桌面GUI设计"><a href="#桌面GUI设计" class="headerlink" title="桌面GUI设计"></a>桌面GUI设计</h3><p>主窗口是指桌面软件的主程序用户操作界面，它为窗口框架，其容器包含子窗口、菜单、控件等界面组件。</p>
+<p>子窗口是指桌面软件功能子程序用户操作界面，它通常为弹出窗口、对话框、消息框</p>
+<ul>
+<li>非模态对话框子窗口</li>
+<li>标签页子窗口</li>
+<li>下拉列表子窗口</li>
+<li>消息框子窗口</li>
+</ul>
+<h3 id="Web-GUI设计"><a href="#Web-GUI设计" class="headerlink" title="Web GUI设计"></a>Web GUI设计</h3><ul>
+<li>Web表单设计</li>
+<li>菜单与链接导航设计</li>
+<li>面包屑和导航面板</li>
+<li>文件上传控件设计</li>
+<li>选项标签页设计</li>
+</ul>
+<h3 id="用户输入设计"><a href="#用户输入设计" class="headerlink" title="用户输入设计"></a>用户输入设计</h3><p>输入设计策略</p>
+<ul>
+<li>控制输入变量</li>
+<li>减少输入延迟</li>
+<li>减少输入错误</li>
+<li>避免额外步骤</li>
+<li>输入过程尽量简化</li>
+</ul>
+<h3 id="输入安全性设计"><a href="#输入安全性设计" class="headerlink" title="输入安全性设计"></a>输入安全性设计</h3><p>输入数据阶段产生的错误，如录入员的错读、漏读、误操作等原因引起的数据错误，可以采用数据验证检查来解决。</p>
+<ul>
+<li>顺序检查</li>
+<li>存在性检查</li>
+<li>数据类型检查</li>
+<li>范围检查</li>
+<li>合理性检查</li>
+<li>有效性检查</li>
+<li>组合性检查</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/29/threejs%E4%B8%8Ewebgl/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">threejs与webgl</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/09/Webpack%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Webpack入门笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YiJing233/yijing233-blog-comment-area');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
